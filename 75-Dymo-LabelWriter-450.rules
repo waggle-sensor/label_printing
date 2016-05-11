@@ -1,0 +1,3 @@
+SUBSYSTEM!="usb", ACTION!="add", GOTO="rules_end"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0922", ATTRS{idProduct}=="0020", SYMLINK+="dymo_lw_450", MODE="0660", GROUP="plugdev"
+LABEL="rules_end"
