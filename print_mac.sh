@@ -20,8 +20,28 @@ if [ "${MAC_STRING}x" == "x" ]; then
   exit 1
 fi
 
+rm -f /tmp/label.pdf /tmp/label.svg 
 
+# generate barcode
 # SVG size 1 corresponds to 1.02cm 
 qrencode --type=SVG --output=/tmp/label.svg --level=H --ignorecase --size=1 ${MAC_STRING}
 
- 
+
+# convert to pdf
+inkscape --without-gui --export-pdf=/tmp/label.pdf /tmp/label.svg 
+
+# modify svg
+
+VIEWBOX_SIZE=$(cat /tmp/label.svg | grep "<svg" | grep -o 'viewBox="0 0 [0-9]* [0-9]*"' | cut -d ' ' -f 3)
+echo "VIEWBOX_SIZE: ${VIEWBOX_SIZE}"
+VIEWBOX_SIZE_DOUBLE=$(echo 2*${VIEWBOX_SIZE} | bc)
+echo "VIEWBOX_SIZE_DOUBLE: ${VIEWBOX_SIZE_DOUBLE}"
+
+
+sed -i -e 's_<svg width="[0-9]*.[0-9]*cm" height="[0-9]*.[0-9]*cm"_<svg width="2.2cm" height="1.1cm"_' \
+-e "s@viewBox=\"0 0 [0-9]* [0-9]*\"@viewBox=\"0 0 ${VIEWBOX_SIZE_DOUBLE} ${VIEWBOX_SIZE}\"@" \
+-e "s$</svg>$<text x=\"29.021343\" y=\"8.5373478\" style=\"font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.01198244px;line-height:50%;font-family:'Courier New';-inkscape-font-specification:'Courier New Bold';text-align:start;writing-mode:lr-tb;text-anchor:start\" >${MAC_STRING}</text> </svg>$" \
+/tmp/label.svg
+
+# print
+#lp -o landscape -o media=Custom.13x25mm /tmp/label.pdf
