@@ -9,8 +9,8 @@ for dev in /sys/class/net/eth? ; do
     MODALIAS=$(cat ${dev}/device/modalias)
     if [ "${MODALIAS}x" ==  "platform:meson-ethx" ] ; then
         MAC_ADDRESS=$(cat ${dev}/address)
-        echo "MAC_ADDRESS: ${MAC_ADDRESS}"
-        MAC_STRING=$(echo ${MAC_ADDRESS} | tr -d ":")
+        echo "MAC_ADDRESS: ${MAC_ADDRESS^^}"
+        MAC_STRING=$(echo ${MAC_ADDRESS^^} | tr -d ":")
     fi 
 done
 
@@ -36,7 +36,7 @@ echo "VIEWBOX_SIZE: ${VIEWBOX_SIZE}"
 VIEWBOX_SIZE_DOUBLE=$(echo 2*${VIEWBOX_SIZE} | bc)
 echo "VIEWBOX_SIZE_DOUBLE: ${VIEWBOX_SIZE_DOUBLE}"
 
-TEXT_X=$(echo 1.1*${VIEWBOX_SIZE} | bc -l)
+TEXT_X=${VIEWBOX_SIZE}
 
 sed -e 's_<svg width="[0-9]*.[0-9]*cm" height="[0-9]*.[0-9]*cm"_<svg width="2.2cm" height="1.1cm"_' \
 -e "s@viewBox=\"0 0 [0-9]* [0-9]*\"@viewBox=\"0 0 ${VIEWBOX_SIZE_DOUBLE} ${VIEWBOX_SIZE}\"@" \
