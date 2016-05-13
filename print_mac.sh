@@ -2,7 +2,7 @@
 
 
 echo "Starting..." >> /print_mac.log
-echo date >> /print_mac.log
+echo `date` >> /print_mac.log
 
 #
 # detect MAC address
