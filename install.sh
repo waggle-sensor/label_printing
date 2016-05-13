@@ -3,8 +3,22 @@
 set -e
 set -x
 
+
+if [ ! -e print_mac.sh ] ; then
+  echo "print_mac.sh not found"
+  exit 1
+fi
+
+if [ ! -e 75-Dymo-LabelWriter-450.rules_template ] ; then
+  echo "75-Dymo-LabelWriter-450.rules_template not found"
+  exit 1
+fi
+
+
+
 # udev rules
-cp 75-Dymo-LabelWriter-450.rules /etc/udev/rules.d
+sed -e "s:\[% SCRIPT %\]:`pwd`print_mac.sh:" ./75-Dymo-LabelWriter-450.rules_template  > /etc/udev/rules.d/75-Dymo-LabelWriter-450.rules
+
 
 udevadm control --reload-rules
 
