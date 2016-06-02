@@ -11,9 +11,9 @@ When the waggle image is used as the base image, stop the waggle-init process:
 waggle-service stop waggle-init
 ```
 
-Delete all init files (except waggle-epoch ?):
+Delete waggle init (except waggle-epoch):
 ```bash
-rm /etc/init/waggle-*
+ls -1 /etc/init/waggle-* | grep -v epoch | xargs -i rm {}
 ```
 
 Install drivers and scripts:
