@@ -24,4 +24,11 @@ cd label_printing/
 ./install.sh
 ```
 
+# print_mac.sh argument
+print_mac.sh can take an argument which will be printed under the MAC address, e.g.:
+
+```bash
+print_mac.sh ERROR
+```
+
 
