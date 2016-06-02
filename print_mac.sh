@@ -65,9 +65,9 @@ echo "LINE_1: ${LINE_1}"
 echo "LINE_2: ${LINE_2}"
 echo "LINE_3: ${LINE_3}"
 
-if [ "${1}x" != "x" ] ; then
-    
-fi
+#if [ "${1}x" != "x" ] ; then
+
+#fi
 
 set -x
 
