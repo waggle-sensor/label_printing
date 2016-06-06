@@ -26,6 +26,8 @@ for dev in /sys/class/net/eth? ; do
     
     if [ "${MODALIAS}x" ==  "platform:meson-ethx" ] || [ ${PRODUCT_MATCH} -eq 1 ] ; then
         MAC_ADDRESS=$(cat ${dev}/address)
+        #upper case
+        MAC_ADDRESS=${MAC_ADDRESS^^}
         echo "MAC_ADDRESS: ${MAC_ADDRESS}"
         MAC_STRING=$(echo ${MAC_ADDRESS} | tr -d ":")
     fi
