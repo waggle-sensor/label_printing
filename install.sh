@@ -16,8 +16,8 @@ fi
 
 
 # udev rules
-sed -e "s:\[% SCRIPT %\]:`pwd`/print_mac.sh:" ./75-Dymo-LabelWriter-450.rules_template  > /etc/udev/rules.d/75-Dymo-LabelWriter-450.rules
-
+#sed -e "s:\[% SCRIPT %\]:`pwd`/print_mac.sh:" ./75-Dymo-LabelWriter-450.rules_template  > /etc/udev/rules.d/75-Dymo-LabelWriter-450.rules
+cp 75-Dymo-LabelWriter-450.rules_template  > /etc/udev/rules.d/75-Dymo-LabelWriter-450.rules
 
 udevadm control --reload-rules
 
