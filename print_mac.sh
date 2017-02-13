@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 
 echo "Starting..." >> /print_mac.log
 echo `date` >> /print_mac.log
@@ -9,7 +10,7 @@ echo `date` >> /print_mac.log
 #
 MAC_ADDRESS=""
 
-for dev in /sys/class/net/eth? ; do
+for dev in /sys/class/net/e* ; do
     MODALIAS=""
     if [ -e ${dev}/device/modalias ] ; then
       MODALIAS=$(cat ${dev}/device/modalias)
